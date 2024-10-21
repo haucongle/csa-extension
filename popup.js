@@ -1,11 +1,11 @@
-document.getElementById('searchButton').addEventListener('click', function() {
+document.getElementById('searchButton').addEventListener('click', function () {
   var number = document.getElementById('questionNumber').value;
-  var url = `https://www.google.com/search?q=site%3Aexamtopics.com+exam+CSA+topic+1+question+${number}+discussion`;
+  var url = `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number}+discussion%22`;
   chrome.tabs.create({ url: url });
 });
 
-document.getElementById('printButton').addEventListener('click', function() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+document.getElementById('printButton').addEventListener('click', function () {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
       target: { tabId: tabs[0].id },
       function: printPage
@@ -13,7 +13,7 @@ document.getElementById('printButton').addEventListener('click', function() {
   });
 });
 
-document.getElementById('questionNumber').addEventListener('keypress', function(event) {
+document.getElementById('questionNumber').addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     document.getElementById('searchButton').click();
   }
