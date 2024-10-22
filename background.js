@@ -15,13 +15,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         var urls = [
           `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
           `https://www.bing.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://yandex.com/search/?text=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
           `https://duckduckgo.com/?t=h_&q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://search.brave.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`
+          `https://search.brave.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://swisscows.com/en/web?query=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://search.yahoo.com/search?p=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://coccoc.com/search?query=exam+CSA+topic+1+question+${number + i}+discussion+site%3Aexamtopics.com`,
+          `https://yandex.com/search/?text=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
         ];
-        var url = urls[Math.floor(Math.random() * urls.length)];
-        chrome.tabs.create({ url: url });
-      }, i * Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
+        chrome.tabs.create({ url: urls[i % urls.length] });
+      }, i * 1000);
     }
     sendResponse({ number: number });
   }
