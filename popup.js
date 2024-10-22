@@ -13,6 +13,12 @@ document.getElementById('searchButton').addEventListener('click', function () {
   chrome.tabs.create({ url: url });
 });
 
+document.getElementById('questionNumber').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    document.getElementById('searchButton').click();
+  }
+});
+
 document.getElementById('printButton').addEventListener('click', function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
@@ -20,12 +26,6 @@ document.getElementById('printButton').addEventListener('click', function () {
       function: printPage
     });
   });
-});
-
-document.getElementById('questionNumber').addEventListener('keypress', function (event) {
-  if (event.key === 'Enter') {
-    document.getElementById('searchButton').click();
-  }
 });
 
 function printPage() {
@@ -49,7 +49,7 @@ function printPage() {
       }
     }
   `;
-  document.head.append(style);
+  // document.head.append(style);
 
   setTimeout(() => window.print(), 500);
 }
