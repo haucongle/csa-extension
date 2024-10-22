@@ -1,5 +1,5 @@
 // Load the stored question number when the popup is opened
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var storedNumber = localStorage.getItem('questionNumber');
   if (storedNumber) {
     document.getElementById('questionNumber').value = storedNumber;
@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById('searchButton').addEventListener('click', function () {
-  var number = document.getElementById('questionNumber').value;
-  localStorage.setItem('questionNumber', number); // Store the value
-  var url = `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number}+discussion%22`;
-  chrome.tabs.create({ url: url });
+  var input = document.getElementById('questionNumber').value;
+  chrome.runtime.sendMessage({ action: 'createTabs', number: parseInt(input) }, function (response) {
+    console.log('Response:', response.status);
+  });
 });
 
 document.getElementById('questionNumber').addEventListener('keypress', function (event) {
