@@ -1,22 +1,29 @@
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.action.onClicked.addListener(function(tab) {
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.action.onClicked.addListener(function (tab) {
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       files: ['content.js']
     });
   });
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === 'createTabs') {
     let number = request.number;
     for (let i = 0; i < 10; ++i) {
       setTimeout(() => {
-        var url = `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`;
+        var urls = [
+          `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://www.bing.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://yandex.com/search/?text=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://duckduckgo.com/?t=h_&q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
+          `https://search.brave.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`
+        ];
+        var url = urls[Math.floor(Math.random() * urls.length)];
         chrome.tabs.create({ url: url });
-      }, i * 2000);
+      }, i * Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
     }
-    sendResponse({status: 'done'});
+    sendResponse({ number: number });
   }
   return true;
 });

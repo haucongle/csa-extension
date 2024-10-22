@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('searchButton').addEventListener('click', function () {
   var input = document.getElementById('questionNumber').value;
   chrome.runtime.sendMessage({ action: 'createTabs', number: parseInt(input) }, function (response) {
-    console.log('Response:', response.status);
+    localStorage.setItem('questionNumber', response.number + 9); // Store the value
+    // console.log('Response:', response.status);
   });
 });
 
