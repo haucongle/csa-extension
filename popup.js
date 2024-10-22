@@ -1,5 +1,14 @@
+// Load the stored question number when the popup is opened
+document.addEventListener('DOMContentLoaded', function() {
+  var storedNumber = localStorage.getItem('questionNumber');
+  if (storedNumber) {
+    document.getElementById('questionNumber').value = storedNumber;
+  }
+});
+
 document.getElementById('searchButton').addEventListener('click', function () {
   var number = document.getElementById('questionNumber').value;
+  localStorage.setItem('questionNumber', number); // Store the value
   var url = `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number}+discussion%22`;
   chrome.tabs.create({ url: url });
 });
@@ -28,5 +37,19 @@ function printPage() {
   document.querySelector('div.contrib__ulimited').remove();
   document.querySelector('div.action-row-container').remove();
   document.querySelector('div.full-width-header').remove();
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @media print {
+      @page {
+        size: A5 landscape;
+      }
+      div.sec-spacer {
+        padding: 0 !important;
+      }
+    }
+  `;
+  document.head.append(style);
+
   setTimeout(() => window.print(), 500);
 }
