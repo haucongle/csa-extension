@@ -13,17 +13,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     for (let i = 0; i < 10; ++i) {
       setTimeout(() => {
         var urls = [
-          `https://www.google.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://www.bing.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://duckduckgo.com/?t=h_&q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://search.brave.com/search?q=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://swisscows.com/en/web?query=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          `https://search.yahoo.com/search?p=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          // `https://yandex.com/search/?text=site%3Aexamtopics.com+%22exam+CSA+topic+1+question+${number + i}+discussion%22`,
-          // `https://coccoc.com/search?query=exam+CSA+topic+1+question+${number + i}+discussion+site%3Aexamtopics.com`,
+          `https://www.google.com/search?q=`,
+          `https://www.bing.com/search?q=`,
+          `https://duckduckgo.com/?t=h_&q=`,
+          `https://search.brave.com/search?q=`,
+          `https://swisscows.com/en/web?query=`,
+          `https://search.yahoo.com/search?p=`,
         ];
-        chrome.tabs.create({ url: urls[i % urls.length] });
-      }, i * 1000);
+        const query = `site%3Aexamtopics.com+%22exam+CAD+topic+1+question+${number + i}+discussion%22`
+        chrome.tabs.create({ url: urls[i % urls.length] + query });
+      }, i * 2000);
     }
     sendResponse({ number: number });
   }
